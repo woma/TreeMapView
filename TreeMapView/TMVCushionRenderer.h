@@ -38,7 +38,6 @@
 
 - (void) renderCushionInBitmap: (NSBitmapImageRep*) bitmap;
 - (void) renderCushionInBitmapGeneric: (NSBitmapImageRep*) bitmap;
-- (void) renderCushionInBitmapPPC603: (NSBitmapImageRep*) bitmap; //PowerPC optimzed version (603+)
 
 + (void) normalizeColorRed: (float*) red green: (float*) green blue: (float*) blue;
 + (NSColor*) normalizeColor: (NSColor*) color;

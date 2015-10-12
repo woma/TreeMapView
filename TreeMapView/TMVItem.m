@@ -30,9 +30,9 @@ static NSMutableDictionary *_cushionTextAttributes;
                 childsPerRow: (NSMutableArray*) childsPerRow
                  childWidths: (NSMutableArray*) childWidths
                 rowsAreHoriz: (BOOL*) horizontal;
-- (double) calculateRow: (unsigned) startChildIndex
+- (double) calculateRow: (NSUInteger) startChildIndex
                rowWidth: (double) rowWidth
-            childsUsed : (unsigned*) childsUsed
+            childsUsed : (NSUInteger*) childsUsed
             childWidths: (NSMutableArray*) childWidths;
 
 - (void) createChildRenderers;
@@ -191,7 +191,7 @@ static NSMutableDictionary *_cushionTextAttributes;
     return [_childRenderers objectAtIndex: index];
 }
 
-- (unsigned) childCount
+- (NSUInteger) childCount
 {
     return [_childRenderers count];
 }
@@ -353,8 +353,8 @@ static NSMutableDictionary *_cushionTextAttributes;
                  childWidths: (NSMutableArray*) childWidths
                 rowsAreHoriz: (BOOL*) horizontal
 {
-    unsigned childCount = [_childRenderers count];
-    unsigned i;
+    NSUInteger childCount = [_childRenderers count];
+    NSUInteger i;
 	NSNumber *num = nil;
 	
     if ( [self weight] == 0 )
@@ -363,7 +363,7 @@ static NSMutableDictionary *_cushionTextAttributes;
         [rows addObject: num/*[NSNumber numberWithUnsignedInt: 1]*/];
 		[num release];
 		
-		num = [[NSNumber alloc] initWithUnsignedInt: childCount];
+		num = [[NSNumber alloc] initWithUnsignedInteger: childCount];
         [childsPerRow addObject: num/*[NSNumber numberWithUnsignedInt: childCount]*/];
 		[num release];
 
@@ -391,7 +391,7 @@ static NSMutableDictionary *_cushionTextAttributes;
 
         for ( i = 0; i < childCount; )
         {
-            unsigned childsUsed = 0;
+            NSUInteger childsUsed = 0;
             double rowHeight = [self calculateRow: i
                                          rowWidth: width
                                        childsUsed: &childsUsed
@@ -401,7 +401,7 @@ static NSMutableDictionary *_cushionTextAttributes;
             [rows addObject: num/*[NSNumber numberWithDouble: rowHeight]*/];
 			[num release];
 			
-			num = [[NSNumber alloc] initWithUnsignedInt: childsUsed];
+			num = [[NSNumber alloc] initWithUnsignedInteger: childsUsed];
             [childsPerRow addObject: num/*[NSNumber numberWithUnsignedInt: childsUsed]*/];
 			[num release];
 
@@ -410,17 +410,17 @@ static NSMutableDictionary *_cushionTextAttributes;
     }
 }
 
-- (double) calculateRow: (unsigned) startChildIndex
+- (double) calculateRow: (NSUInteger) startChildIndex
                rowWidth: (double) rowWidth
-            childsUsed : (unsigned int*) childsUsed
+            childsUsed : (NSUInteger*) childsUsed
             childWidths: (NSMutableArray*) childWidths
 {
     static const double minProportion = 0.4;
     const double mySize= [self weight];
-    unsigned i;
+    NSUInteger i;
     double sizeUsed= 0;
     double rowHeight= 0;
-    unsigned childCount = [_childRenderers count];
+    NSUInteger childCount = [_childRenderers count];
 
     *childsUsed = 0;
 
